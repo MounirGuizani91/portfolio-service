@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portfolio-app-deployment-prod
+  name: portfolio-app-deployment-prd
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: portfolio-app-prod
+      app: portfolio-app-prd
   template:
     metadata:
       labels:
-        app: portfolio-app-prod
+        app: portfolio-app-prd
     spec:
       containers:
         - name: portfolio-app
-          image: portfolio-app:prod
+          image: portfolio-app:prd
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
           env:
@@ -25,11 +26,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: portfolio-app-service-prod
+  name: portfolio-app-service-prd
 spec:
   type: ClusterIP
   selector:
-    app: portfolio-app-prod
+    app: portfolio-app-prd
   ports:
     - port: 8080
       targetPort: 8080

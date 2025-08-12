@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-pvc-dev
 spec:
   accessModes:
     - ReadWriteOnce
@@ -12,16 +12,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: postgres-dev
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgres-dev
     spec:
       containers:
         - name: postgres
@@ -41,16 +41,16 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: postgres-pvc-dev
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: postgres-service-dev
 spec:
   type: ClusterIP
   selector:
-    app: postgres
+    app: postgres-dev
   ports:
     - port: 5432
       targetPort: 5432

@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portfolio-app-deployment
+  name: portfolio-app-deployment-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: portfolio-app
+      app: portfolio-app-dev
   template:
     metadata:
       labels:
-        app: portfolio-app
+        app: portfolio-app-dev
     spec:
       containers:
         - name: portfolio-app
-          image: portfolio-app:latest
+          image: portfolio-app:dev
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
@@ -25,11 +25,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: portfolio-app-service
+  name: portfolio-app-service-dev
 spec:
   type: NodePort
   selector:
-    app: portfolio-app
+    app: portfolio-app-dev
   ports:
     - protocol: TCP
       port: 8080
