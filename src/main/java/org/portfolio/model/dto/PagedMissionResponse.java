@@ -1,21 +1,21 @@
 package org.portfolio.model.dto;
 
 import lombok.Builder;
-import org.portfolio.model.entity.Projet;
+import org.portfolio.model.entity.Mission;
 
 import java.util.List;
 
 @Builder
-public class PagedProjetResponse {
-    private List<Projet> projets;
+public class PagedMissionResponse {
+    private List<Mission> missions;
     private long totalElements;
 
-    public List<Projet> getProjets() {
-        return projets;
+    public List<Mission> getMissions() {
+        return missions;
     }
 
-    public void setProjets(List<Projet> projets) {
-        this.projets = projets;
+    public void setMissions(List<Mission> missions) {
+        this.missions = missions;
     }
 
     public long getTotalElements() {

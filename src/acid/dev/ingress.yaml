@@ -2,8 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: portfolio-app-ingress-dev
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: dev
 spec:
   rules:
     - host: portfolio-app-dev
@@ -15,4 +14,4 @@ spec:
               service:
                 name: portfolio-app-service-dev
                 port:
-                  number: 8080
+                  number: 8081
