@@ -15,7 +15,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8081
   type: ClusterIP
 ```
 
@@ -34,7 +34,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8081
       nodePort: 30007
   type: NodePort
 ```
@@ -54,7 +54,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8081
   type: LoadBalancer
 ```
 
@@ -87,7 +87,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8081
 ```
 
 ## Résumé des usages

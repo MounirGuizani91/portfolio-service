@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    environment {
+        ENV = 'prod'
+    }
+    stages {
+        stage('Check Maven') {
+            steps {
+                // Show Maven version to ensure it is installed
+                bat 'mvn -v'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Compile and package the project with Maven
+                bat 'mvn clean package -DskipTests'
+            }
+        }
+        stage('List Workspace') {
+            steps {
+                // List workspace content to check if target is generated
+                bat 'dir'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run unit tests
+                bat 'mvn test'
+            }
+        }
+        stage('Build & Load Docker Image') {
+            steps {
+                script {
+                    def imageTag = "prd-${env.BUILD_NUMBER}"
+                    bat "docker build --no-cache -t portfolio-app:${imageTag} ."
+                    bat "minikube image load portfolio-app:${imageTag}"
+                    bat "powershell -Command \"(Get-Content src/acid/prd/deployment.yaml) -replace 'portfolio-app:prd', 'portfolio-app:${imageTag}' | Set-Content src/acid/prd/deployment.yaml\""
+                }
+            }
+        }
+        stage('Deploy to Prod') {
+            steps {
+                input message: 'Deploy to production'
+                echo 'Deploying to PROD environment...'
+                bat 'kubectl apply -f src/acid/prd/deployment.yaml'
+                bat 'kubectl rollout restart deployment portfolio-app-deployment-prd'
+            }
+        }
+        stage('Archive') {
+            steps {
+                // Archive the generated JAR
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+}

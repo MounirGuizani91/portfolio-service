@@ -81,8 +81,8 @@ kubectl get namespaces
 - `docker images`  
   Liste toutes les images Docker présentes localement.
 
-- `docker run -p 8080:8080 mon-image`  
-  Démarre un conteneur à partir de l’image `mon-image` et mappe le port 8080.
+- `docker run -p 8081:8081 mon-image`  
+  Démarre un conteneur à partir de l’image `mon-image` et mappe le port 8081.
 
 - `docker ps`  
   Affiche les conteneurs en cours d’exécution.
