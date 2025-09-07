@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-app-deployment-dev
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-app-dev
+  template:
+    metadata:
+      labels:
+        app: portfolio-app-dev
+    spec:
+      containers:
+        - name: portfolio-app
+          image: 258215413901.dkr.ecr.eu-north-1.amazonaws.com/portfolio-app:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
